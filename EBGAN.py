@@ -46,7 +46,7 @@ class discriminator(tf.keras.Model):
 def get_gan():
   Generator = generator()
   Discriminator = discriminator()
-  gen_name = 'WGAN'
+  gen_name = 'EBGAN'
   return Generator, Discriminator, gen_name
 
 

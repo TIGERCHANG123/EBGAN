@@ -10,7 +10,7 @@ from tensorflow.compat.v1 import InteractiveSession
 
 ubuntu_root='/home/tigerc'
 windows_root='D:/Automatic/SRTP/GAN'
-root = '/content/drive/My Drive/my_network'
+root = '/content/drive/My Drive'
 temp_root = root+'/temp'
 
 def main(continue_train, train_time):
@@ -24,8 +24,8 @@ def main(continue_train, train_time):
 
     train_dataset = dataset.get_train_dataset()
     pic = draw(10, temp_root, model_dataset, train_time=train_time)
-    generator_optimizer = tf.keras.optimizers.RMSprop(2e-4)
-    discriminator_optimizer = tf.keras.optimizers.RMSprop(2e-4)
+    generator_optimizer = tf.keras.optimizers.Adam(2e-4)
+    discriminator_optimizer = tf.keras.optimizers.Adam(2e-4)
 
     checkpoint_path = temp_root + '/temp_model_save/' + model_dataset
     ckpt = tf.train.Checkpoint(genetator_optimizers=generator_optimizer, discriminator_optimizer=discriminator_optimizer ,
@@ -41,7 +41,7 @@ def main(continue_train, train_time):
     train = train_one_epoch(model=[generator_model, discriminator_model], train_dataset=train_dataset,
               optimizers=[generator_optimizer, discriminator_optimizer], metrics=[gen_loss, disc_loss], noise_dim=noise_dim, margin=20)
 
-    for epoch in range(100):
+    for epoch in range(500):
         train.train(epoch=epoch, pic=pic)
         pic.show()
         if (epoch + 1) % 5 == 0:
