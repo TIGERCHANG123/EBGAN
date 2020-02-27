@@ -32,7 +32,7 @@ class discriminator(tf.keras.Model):
     self.flatten = tf.keras.layers.Flatten()
     self.encoder_dense = tf.keras.layers.Dense(128)
     self.decoder_dense = tf.keras.layers.Dense(128)
-    self.reshape = tf.keras.layers.Reshape([7, 7, 256])
+    self.reshape = tf.keras.layers.Reshape([None, 7, 7, 256])
     self.decoder_layer_list = [
       Decoder(filters=256, strides=2),
       Decoder(filters=128, strides=2),
