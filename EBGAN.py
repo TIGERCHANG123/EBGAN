@@ -45,6 +45,7 @@ class discriminator(tf.keras.Model):
     x = self.flatten(x)
     embedding = self.encoder_dense(x)
     x = self.decoder_dense(embedding)
+    x = self.reshape(x)
     for i in range(len(self.decoder_layer_list)):
       x = self.decoder_layer_list[i](x)
     return x, embedding
