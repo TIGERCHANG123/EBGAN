@@ -10,7 +10,7 @@ from tensorflow.compat.v1 import InteractiveSession
 
 ubuntu_root='/home/tigerc'
 windows_root='D:/Automatic/SRTP/GAN'
-root = '/content/drive/My Drive'
+root = '/content'
 temp_root = root+'/temp'
 
 def main(continue_train, train_time):
@@ -39,7 +39,7 @@ def main(continue_train, train_time):
     disc_loss = tf.keras.metrics.Mean(name='disc_loss')
 
     train = train_one_epoch(model=[generator_model, discriminator_model], train_dataset=train_dataset,
-              optimizers=[generator_optimizer, discriminator_optimizer], metrics=[gen_loss, disc_loss], noise_dim=noise_dim, margin=20)
+              optimizers=[generator_optimizer, discriminator_optimizer], metrics=[gen_loss, disc_loss], noise_dim=noise_dim, margin=10)
 
     for epoch in range(500):
         train.train(epoch=epoch, pic=pic)
