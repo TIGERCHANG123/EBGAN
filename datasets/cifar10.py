@@ -5,7 +5,7 @@ import tensorflow as tf
 class mnist_dataset():
     def __init__(self, root, noise_dim):
         file_path = root + '/datasets/tensorflow_datasets'
-        mnist, meta = tfds.load('cifar10', data_dir=file_path, download=False, as_supervised=True, with_info=True)
+        mnist, meta = tfds.load('cifar10', data_dir=file_path, download=True, as_supervised=True, with_info=True)
         print(meta)
         self.train_dataset=mnist['train']
         self.noise_dim = noise_dim
