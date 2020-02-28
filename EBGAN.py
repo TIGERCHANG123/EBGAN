@@ -36,8 +36,9 @@ class discriminator(tf.keras.Model):
     self.decoder_layer_list = [
       Decoder(filters=256, strides=2),
       Decoder(filters=128, strides=2),
-      Decoder(filters=3, strides=2),
+      Decoder(filters=64, strides=2),
     ]
+    self.output_layer = tf.keras.layers.Conv2DTranspose(filters=3, kernel_size=5, strides=1, padding="same")
 
   def call(self, x):
     for i in range(len(self.encoder_layer_list)):
@@ -46,8 +47,9 @@ class discriminator(tf.keras.Model):
     embedding = self.encoder_dense(x)
     x = self.decoder_dense(embedding)
     x = self.reshape(x)
-    for i in range(len(self.decoder_layer_list)):
+    for i in range(len(self.decoder_layer_list) - 1):
       x = self.decoder_layer_list[i](x)
+    x = self.output_layer(x)
     return x, embedding
 
 def get_gan():
