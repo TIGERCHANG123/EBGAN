@@ -6,10 +6,10 @@ class generator(tf.keras.Model):
     self.input_layer = generator_Input(shape=[4, 4, 512])
 
     self.middle_layer_list = [
-      generator_Middle(filters=512, strides=2),
+      # generator_Middle(filters=512, strides=2),
       generator_Middle(filters=256, strides=2),
       generator_Middle(filters=128, strides=2),
-      # generator_Middle(filters=64, strides=2)
+      generator_Middle(filters=64, strides=2)
     ]
 
     self.output_layer = generator_Output(image_depth=3, strides=1)
@@ -25,7 +25,7 @@ class discriminator(tf.keras.Model):
   def __init__(self):
     super(discriminator, self).__init__()
     self.encoder_layer_list = [
-      # Encoder(filters=64, strides=2),
+      Encoder(filters=64, strides=2),
       Encoder(filters=128, strides=2),
       Encoder(filters=256, strides=2),
     ]

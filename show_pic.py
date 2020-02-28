@@ -96,5 +96,5 @@ class draw:
     y=tf.squeeze(y)
     y = (y + 1) / 2
     for i in range(pic_num):
-      plt.imsave(self.generated_pic_path+'/{}_{}.png'.format(epoch, i), y[i].numpy())
+      plt.imsave(self.generated_pic_path+'/{}_{}_{}.png'.format(self.train_time, epoch, i), y[i].numpy())
     return
