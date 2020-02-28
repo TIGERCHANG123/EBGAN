@@ -65,11 +65,11 @@ if __name__ == '__main__':
         opts, args = getopt.getopt(sys.argv[1:], '-c-t:-e:',['continue','time=','epoch='])
         for op, value in opts:
             print(op, value)
-            if op == "-continue":
+            if op in ('-c', '--continue'):
                 continue_train = True
-            elif op == "-time":
+            elif op in ('-t', '--time'):
                 train_time = value
-            elif op == "-epoch":
+            elif op in ('-e', '--epoch'):
                 epoch = value
     except:
         print('wrong input!')
