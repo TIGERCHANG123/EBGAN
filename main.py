@@ -68,9 +68,9 @@ if __name__ == '__main__':
             if op in ('-c', '--continue'):
                 continue_train = True
             elif op in ('-t', '--time'):
-                train_time = value
+                train_time = int(value)
             elif op in ('-e', '--epoch'):
-                epoch = value
+                epoch = int(value)
     except:
         print('wrong input!')
 
