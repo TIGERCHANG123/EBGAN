@@ -6,10 +6,10 @@ class generator(tf.keras.Model):
     self.input_layer = generator_Input(shape=[4, 4, 512])
 
     self.middle_layer_list = [
-      # generator_Middle(filters=512, strides=2),
+      generator_Middle(filters=512, strides=2),
       generator_Middle(filters=256, strides=2),
       generator_Middle(filters=128, strides=2),
-      generator_Middle(filters=64, strides=2)
+      # generator_Middle(filters=64, strides=2)
     ]
 
     self.output_layer = generator_Output(image_depth=3, strides=1)
@@ -25,7 +25,7 @@ class discriminator(tf.keras.Model):
   def __init__(self):
     super(discriminator, self).__init__()
     self.encoder_layer_list = [
-      Encoder(filters=64, strides=1),
+      Encoder(filters=64, strides=2),
       Encoder(filters=128, strides=2),
       Encoder(filters=256, strides=2),
     ]
@@ -38,7 +38,7 @@ class discriminator(tf.keras.Model):
       Decoder(filters=128, strides=2),
       Decoder(filters=64, strides=2),
     ]
-    self.output_layer = tf.keras.layers.Conv2DTranspose(filters=3, kernel_size=5, strides=1, padding="same")
+    self.output_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=3, strides=1, padding="same")
 
   def call(self, x):
     for i in range(len(self.encoder_layer_list)):
@@ -47,7 +47,7 @@ class discriminator(tf.keras.Model):
     embedding = self.encoder_dense(x)
     x = self.decoder_dense(embedding)
     x = self.reshape(x)
-    for i in range(len(self.decoder_layer_list) - 1):
+    for i in range(len(self.decoder_layer_list)):
       x = self.decoder_layer_list[i](x)
     x = self.output_layer(x)
     return x, embedding

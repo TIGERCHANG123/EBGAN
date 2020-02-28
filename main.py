@@ -10,7 +10,7 @@ from tensorflow.compat.v1 import InteractiveSession
 
 ubuntu_root='/home/tigerc'
 windows_root='D:/Automatic/SRTP/GAN'
-root = '/content/drive/My Drive'
+root = '/content/drive/My Drive/temp'
 
 temp_root = root+'/temp'
 dataset_root = '/content'
@@ -43,7 +43,7 @@ def main(continue_train, train_time):
     train = train_one_epoch(model=[generator_model, discriminator_model], train_dataset=train_dataset,
               optimizers=[generator_optimizer, discriminator_optimizer], metrics=[gen_loss, disc_loss], noise_dim=noise_dim, margin=20)
 
-    for epoch in range(100):
+    for epoch in range(500):
         train.train(epoch=epoch, pic=pic)
         pic.show()
         if (epoch + 1) % 5 == 0:
@@ -57,4 +57,4 @@ if __name__ == '__main__':
     config.gpu_options.allow_growth = True
     session = InteractiveSession(config=config)
 
-    main(continue_train=False, train_time=1)
+    main(continue_train=False, train_time=0)
