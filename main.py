@@ -62,7 +62,7 @@ if __name__ == '__main__':
     train_time  = 0
     epoch = 500
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hd:v:")
+        opts, args = getopt.getopt(sys.argv[1:], '-c-t:-e:',['continue','time=','epoch='])
         for op, value in opts:
             print(op, value)
             if op == "-continue":
