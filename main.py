@@ -12,10 +12,10 @@ from tensorflow.compat.v1 import InteractiveSession
 
 ubuntu_root='/home/tigerc'
 windows_root='D:/Automatic/SRTP/GAN'
-root = '/content/drive/My Drive/temp'
-
+# root = '/content/drive/My Drive/temp'
+root = ubuntu_root
 temp_root = root+'/temp'
-dataset_root = '/content'
+dataset_root = root
 
 def main(continue_train, train_time, train_epoch):
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or any {'0', '1', '2'}
@@ -57,7 +57,7 @@ def main(continue_train, train_time, train_epoch):
 if __name__ == '__main__':
     continue_train = False
     train_time  = 0
-    epoch = 100
+    epoch = 500
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hd:v:")
         for op, value in opts:

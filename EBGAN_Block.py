@@ -53,6 +53,21 @@ class Encoder(tf.keras.Model):
       x = self.dropout(x)
       return x
 
+class Encoder_embedding(tf.keras.Model):
+    def __init__(self, hidden_unit, shape):
+        super(Encoder_embedding, self).__init__()
+        self.flatten = tf.keras.layers.Flatten()
+        self.encoder_dense = tf.keras.layers.Dense(128)
+        self.decoder_dense = tf.keras.layers.Dense(shape[0] * shape[1] * shape[2])
+        self.reshape = tf.keras.layers.Reshape(shape)
+
+    def call(self, x):
+        x = self.flatten(x)
+        embedding = self.encoder_dense(x)
+        x = self.decoder_dense(embedding)
+        x = self.reshape(x)
+        return x, embedding
+
 class Decoder(tf.keras.Model):
     def __init__(self, filters, strides):
         super(Decoder, self).__init__()

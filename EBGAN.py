@@ -25,28 +25,23 @@ class discriminator(tf.keras.Model):
   def __init__(self):
     super(discriminator, self).__init__()
     self.encoder_layer_list = [
-      Encoder(filters=64, strides=2),
+      # Encoder(filters=64, strides=2),
       Encoder(filters=128, strides=2),
       Encoder(filters=256, strides=2),
     ]
-    self.flatten = tf.keras.layers.Flatten()
-    self.encoder_dense = tf.keras.layers.Dense(128)
-    self.decoder_dense = tf.keras.layers.Dense(4 * 4 * 256)
-    self.reshape = tf.keras.layers.Reshape([4, 4, 256])
+    self.encoder_embedding = Encoder_embedding(128, [4, 4, 256])
+
     self.decoder_layer_list = [
       Decoder(filters=256, strides=2),
       Decoder(filters=128, strides=2),
       Decoder(filters=64, strides=2),
     ]
-    self.output_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=3, strides=1, padding="same")
+    self.output_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=3, strides=1, padding="same", activation='tanh')
 
   def call(self, x):
     for i in range(len(self.encoder_layer_list)):
       x = self.encoder_layer_list[i](x)
-    x = self.flatten(x)
-    embedding = self.encoder_dense(x)
-    x = self.decoder_dense(embedding)
-    x = self.reshape(x)
+    x, embedding = self.encoder_embedding(x)
     for i in range(len(self.decoder_layer_list)):
       x = self.decoder_layer_list[i](x)
     x = self.output_layer(x)
