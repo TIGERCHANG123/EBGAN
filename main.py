@@ -64,6 +64,7 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hd:v:")
         for op, value in opts:
+            print(op, value)
             if op == "-continue":
                 continue_train = True
             elif op == "-time":
