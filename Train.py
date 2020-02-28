@@ -37,7 +37,7 @@ class train_one_epoch():
             self.pt_loss = self.pullaway_loss(embedding, images.shape[0])
 
             zero = tf.zeros_like(self.margin - self.fake_loss)
-            disc_loss = self.real_loss + tf.maximum(zero, self.margin - self.fake_loss)#avoid cllapsing
+            disc_loss = self.real_loss + tf.maximum(zero, self.margin - self.fake_loss)
             gen_loss = self.fake_loss + 0.1 * self.pt_loss
         gradients_of_generator = gen_tape.gradient(gen_loss, self.generator.trainable_variables)
         gradients_of_discriminator = disc_tape.gradient(disc_loss, self.discriminator.trainable_variables)
