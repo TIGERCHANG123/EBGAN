@@ -36,7 +36,7 @@ class discriminator(tf.keras.Model):
       Decoder(filters=128, strides=2),
       Decoder(filters=64, strides=2),
     ]
-    self.output_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=3, strides=1, padding="same", activation='tanh')
+    self.output_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=3, strides=1, padding="same")
 
   def call(self, x):
     for i in range(len(self.encoder_layer_list)):
